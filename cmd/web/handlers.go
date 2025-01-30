@@ -2,11 +2,31 @@ package main
 
 import (
 	"fmt"
+	"html/template"
+	"log"
 	"net/http"
 	"strconv"
 )
 
 func home(w http.ResponseWriter, r *http.Request) {
+	files := []string{
+		"ui/html/base.tmpl.html",
+		"ui/html/pages/home.tmpl.html",
+	}
+	// template set
+	ts, err := template.ParseFiles(files...)
+	if err != nil {
+		log.Print(err)
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		return
+	}
+
+	err = ts.Execute(w, nil)
+	if err != nil {
+		log.Print(err)
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+	}
+
 	if r.URL.Path != "/" {
 		http.NotFound(w, r)
 		return
