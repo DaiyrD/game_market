@@ -1,1 +1,1 @@
-# game_market
+Project dedicated to online game store 
