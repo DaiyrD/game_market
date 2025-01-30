@@ -9,10 +9,17 @@ import (
 )
 
 func home(w http.ResponseWriter, r *http.Request) {
-	files := []string{
-		"ui/html/base.tmpl.html",
-		"ui/html/pages/home.tmpl.html",
+	if r.URL.Path != "/" {
+		http.NotFound(w, r)
+		return
 	}
+
+	// files' urls
+	files := []string{
+		"C:\\Users\\frogi\\GolandProjects\\game_market\\ui\\html\\base.tmpl.html",
+		"C:\\Users\\frogi\\GolandProjects\\game_market\\ui\\html\\pages\\home.tmpl.html",
+	}
+
 	// template set
 	ts, err := template.ParseFiles(files...)
 	if err != nil {
@@ -21,17 +28,11 @@ func home(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = ts.Execute(w, nil)
+	err = ts.ExecuteTemplate(w, "base", nil)
 	if err != nil {
 		log.Print(err)
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 	}
-
-	if r.URL.Path != "/" {
-		http.NotFound(w, r)
-		return
-	}
-	w.Write([]byte("Welcome to the Game Market!"))
 }
 
 func gameShow(w http.ResponseWriter, r *http.Request) {
