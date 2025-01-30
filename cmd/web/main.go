@@ -8,6 +8,10 @@ import (
 func main() {
 	// creating new router
 	mux := http.NewServeMux()
+
+	fileServer := http.FileServer(http.Dir("../../ui/static/"))
+	mux.Handle("/static/", http.StripPrefix("/static", fileServer))
+
 	mux.HandleFunc("/", home)
 	mux.HandleFunc("/game/show", gameShow)
 	mux.HandleFunc("/game/add", gameAdd)

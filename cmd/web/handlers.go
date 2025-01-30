@@ -16,8 +16,9 @@ func home(w http.ResponseWriter, r *http.Request) {
 
 	// files' urls
 	files := []string{
-		"C:\\Users\\frogi\\GolandProjects\\game_market\\ui\\html\\base.tmpl.html",
-		"C:\\Users\\frogi\\GolandProjects\\game_market\\ui\\html\\pages\\home.tmpl.html",
+		"../../ui/html/base.tmpl.html",
+		"../../ui/html/pages/home.tmpl.html",
+		"../../ui/html/partials//nav.tmpl.html",
 	}
 
 	// template set
